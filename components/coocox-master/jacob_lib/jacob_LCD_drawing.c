@@ -1,11 +1,11 @@
+/*----------------------------------------------------------
+* This file contains functions that are used for 
+* editing the on-screen contents of the LCD.
+* -----------------------------------------------------------*/
+
 #include "stm32f1xx.h"
 #include "jacob_LCD_drawing.h"
 #include <stdlib.h>
-
-//extern uint8_t buffer[];	//gLCD data buffer
-//extern uint8_t stdfont[];	//gLCD font
-uint8_t jc[] = {"JC"};
-uint8_t az[] = {"AZ"};
 
 uint8_t buffer[1024] = {
 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
@@ -342,16 +342,14 @@ static uint8_t stdfont[] = {
 };
 
 
-//draw a character
+// Print a character on the LCD.
 // x = column to start in
 // line = line to start on
 // c = position of font[] to print
-//void printchar(uint8_t line, uint8_t x, uint8_t c, uint8_t *font, uint8_t *buff) {
-void printchar(uint8_t line, uint8_t x, uint8_t c) {
-  for (uint8_t i =0; i<5; i++ ) {
-	//buff[x + (line*128) ] = font[((c*5)+i)];
-	buffer[x + (line*128) ] = stdfont[((c*5)+i)];
-    x++;
+void printchar(uint8_t line, uint8_t startColumn, uint8_t fontCode) {
+  for (uint8_t i =0; i < 5; i++) {
+	buffer[startColumn + (line*128) ] = stdfont[((c*5)+i)];
+    	startColumn++;
   }
 }
 
